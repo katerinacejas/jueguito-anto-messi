@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('imgs/fondo_amor.jpg');
+    background-size: cover;
+}
+
+canvas {
+    border: 2px solid black;
+}
