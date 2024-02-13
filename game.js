@@ -70,24 +70,30 @@ function draw() {
         let enemy = enemies[i];
         ctx.drawImage(enemy_image, enemy.x, enemy.y, enemy.width, enemy.height);
         enemy.y += enemySpeed;
+    }
 
-        // Colisiones entre jugador y enemigos
+    // Colisiones entre jugador y enemigos
+    for (let i = 0; i < enemies.length; i++) {
+        let enemy = enemies[i];
         if (player.x < enemy.x + enemy.width &&
             player.x + player.width > enemy.x &&
             player.y < enemy.y + enemy.height &&
             player.y + player.height > enemy.y) {
             gameOver = true;
         }
+    }
 
-        // Colisiones entre balas y enemigos
-        for (let j = 0; j < bullets.length; j++) {
-            let bullet = bullets[j];
+    // Colisiones entre balas y enemigos
+    for (let i = 0; i < bullets.length; i++) {
+        let bullet = bullets[i];
+        for (let j = 0; j < enemies.length; j++) {
+            let enemy = enemies[j];
             if (bullet.x < enemy.x + enemy.width &&
                 bullet.x + bullet.width > enemy.x &&
                 bullet.y < enemy.y + enemy.height &&
                 bullet.y + bullet.height > enemy.y) {
-                bullets.splice(j, 1);
-                enemies.splice(i, 1);
+                bullets.splice(i, 1);
+                enemies.splice(j, 1);
                 break;
             }
         }
@@ -106,8 +112,6 @@ function generateEnemies() {
                 height: 60
             };
             enemies.push(enemy);
-            // Disparar bala automáticamente
-            fireBullet();
         }
     }, 1000);
 }
