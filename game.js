@@ -110,5 +110,6 @@ function generateEnemies() {
     }, 1000);
 }
 
-draw();
+// Iniciar el juego
 generateEnemies();
+draw();
