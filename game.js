@@ -34,14 +34,18 @@ document.addEventListener('keydown', keyDownHandler);
 document.addEventListener('keyup', keyUpHandler);
 
 function keyDownHandler(event) {
-    if (event.key === 'Left' || event.key === 'ArrowLeft') {
+    if (event.key === 'ArrowLeft') {
         player.x -= player.speed;
-    } else if (event.key === 'Right' || event.key === 'ArrowRight') {
+    } else if (event.key === 'ArrowRight') {
         player.x += player.speed;
-    } else if (event.key === 'Space' && !gameOver) {
+    }
+
+    // Si se presiona la tecla de espacio y el juego no ha terminado
+    if (event.key === ' ' && !gameOver) {
         fireBullet();
     }
 }
+
 
 function keyUpHandler(event) {
     if (event.key === 'Left' || event.key === 'ArrowLeft') {
