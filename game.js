@@ -38,16 +38,12 @@ function keyDownHandler(event) {
         player.x -= player.speed;
     } else if (event.key === 'ArrowRight') {
         player.x += player.speed;
-    } else if (event.code === 'Space' && !gameOver) {
-        fireBullet();
     }
 }
 
 function keyUpHandler(event) {
-    if (event.key === 'ArrowLeft') {
-        player.x += player.speed;
-    } else if (event.key === 'ArrowRight') {
-        player.x -= player.speed;
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        player.x += 0;
     }
 }
 
@@ -87,4 +83,35 @@ function draw() {
         for (let j = 0; j < bullets.length; j++) {
             let bullet = bullets[j];
             if (bullet.x < enemy.x + enemy.width &&
-   
+                bullet.x + bullet.width > enemy.x &&
+                bullet.y < enemy.y + enemy.height &&
+                bullet.y + bullet.height > enemy.y) {
+                bullets.splice(j, 1);
+                enemies.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    requestAnimationFrame(draw);
+}
+
+function generateEnemies() {
+    setInterval(() => {
+        if (!gameOver) {
+            const enemy = {
+                x: Math.random() * (canvas.width - 60),
+                y: 0,
+                width: 60,
+                height: 60
+            };
+            enemies.push(enemy);
+            // Disparar bala automáticamente
+            fireBullet();
+        }
+    }, 1000);
+}
+
+// Iniciar el juego
+generateEnemies();
+draw();
